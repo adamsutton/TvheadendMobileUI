@@ -128,10 +128,10 @@ function getProgressBar(width, percent) {
 		right += 2;
 		middle = false;
 	}
-	var html = '<img alt="'+percent+'%" src="images/pb_trans.png" class="pb left" height="10px" width="'+left+'px" />';
+	var html = '<img alt="'+percent+'%" src="mobile/images/pb_trans.png" class="pb left" height="10px" width="'+left+'px" />';
 	if (middle)
-		html += '<img alt="'+percent+'%" src="images/pb_trans.png" class="pb middle" height="10px" width="2px" />';
-	html += '<img alt="'+percent+'%" src="images/pb_trans.png" class="pb right" height="10px" width="'+right+'px" />';
+		html += '<img alt="'+percent+'%" src="mobile/images/pb_trans.png" class="pb middle" height="10px" width="2px" />';
+	html += '<img alt="'+percent+'%" src="mobile/images/pb_trans.png" class="pb right" height="10px" width="'+right+'px" />';
 	return html;
 }
 
@@ -476,9 +476,9 @@ function readRecordings(response) {
 		var e = response.entries[i];
 		html += '<li><a href="#rec_' + e.id + '">';
 		if (e.schedstate == 'recording')
-			html += icon('../icons/rec.png', '(recording)');
+			html += icon('rec.png', '(recording)');
 		if (e.schedstate == 'scheduled')
-			html += icon('../icons/clock.png', '(scheduled)');
+			html += icon('clock.png', '(scheduled)');
 		html += layoutFormat(e, 'dvr');
 		divs += getRecordingForm(e, which);
 	}
@@ -528,7 +528,7 @@ function readChannels(response) {
 		var no = e.number != undefined ? '<span class="chno round">'+e.number+'</span>' : '';
 		window.channelIcons[e.chid] = e.ch_icon;
 		html = '<li><a href="#channel_' + e.chid + '" onclick="loadEpg('+e.chid+', \''+e.name+'\', true);">';
-		html += imageClass('images/pb_trans.png', 'icon') + no + e.name + '<div class="small"></div></a></li>';
+		html += imageClass('mobile/images/pb_trans.png', 'icon') + no + e.name + '<div class="small"></div></a></li>';
 		var sortNo = e.number!=undefined?e.number:9999;
 		var tags = ("0,"+e.tags).split(",");
 		for (var j in tags) {
@@ -549,7 +549,7 @@ function readChannels(response) {
 		sel[sortNo] += '<li><a href="javascript:" code="'+e.name+'" onclick="selectItem(\'channel\',this);">'+e.name+'</a></li>';
 	}
 	for (var i in tagHtml) {
-		var tagch = '<li class="noBgImage"><a href="epg.html?'+i+'" target="_blank">'+icon('images/timeline.png')+l('timeline')+'</a></li><li class="group">'+l('channels')+'</li>';
+		var tagch = '<li class="noBgImage"><a href="epg.html?'+i+'" target="_blank">'+icon('timeline.png')+l('timeline')+'</a></li><li class="group">'+l('channels')+'</li>';
 		for (var j in tagHtml[i])
 			tagch += tagHtml[i][j];
 		document.getElementById('tag_'+i).innerHTML = tagch;
@@ -608,13 +608,13 @@ function readEpg(response) {
 			}
 			var epg = '';
 			if (e.schedstate == 'scheduled')
-				epg += icon('../icons/clock.png', '(scheduled)');
+				epg += icon('clock.png', '(scheduled)');
 			else if (e.schedstate == 'recording')
-				epg += icon('../icons/rec.png', '(recording)');
+				epg += icon('rec.png', '(recording)');
 			else if (e.schedstate == 'completed')
-				epg += icon('../icons/television.png', '(completed)');
+				epg += icon('television.png', '(completed)');
 			else if (e.schedstate == 'recordingError' || e.schedstate == 'completedError')
-				epg += icon('../icons/exclamation.png', '(error)');
+				epg += icon('exclamation.png', '(error)');
 			epg += layoutFormat(e, chid == 's' ? 'search' : 'epg');
 			html += '<li><a href="#epg_'+e.id+'">' + epg + '</a></li>';
 			ins += getEpgForm(e);
@@ -625,7 +625,7 @@ function readEpg(response) {
 		if (chid == 's')
 			ch = document.getElementById('search');
 		else if (ch.childNodes.length == 1) {
-			html = '<li class="noBgImage"><a href="#live_'+chid+'" class="live">'+icon('../icons/control_play.png')+l('liveTv')+'</a></li>' + html;
+			html = '<li class="noBgImage"><a href="#live_'+chid+'" class="live">'+icon('control_play.png')+l('liveTv')+'</a></li>' + html;
 		}
 		ch.childNodes[ch.childNodes.length-1].outerHTML = '';
 		ch.innerHTML += html;
@@ -695,7 +695,7 @@ function readAutomaticRecorderList(response) {
 	var list = document.getElementById('ar');
 	var html = '';
 	var divs = '';
-	html += '<li><a href="#ar_new">'+icon('../icons/add.gif','')+l('newEntry')+'</a></li>';
+	html += '<li><a href="#ar_new">'+icon('add.gif','')+l('newEntry')+'</a></li>';
 	divs += getAutomaticRecorderForm(newAutomaticRecorder());
 	for (var i in response.entries) {	
 		var e = response.entries[i];
@@ -714,7 +714,7 @@ function readAutomaticRecorderList(response) {
 			info += (info.length > 0 ? ' &mdash; ' : '') + wds;
 		}
 		html += '<li><a' + (e.enabled?'':' class="inactive"')+' href="#ar_' + e.id + '">';
-		html += e.enabled ? icon('../icons/tick.png',l('active')):icon('../icons/control_pause.png', l('inactive'));
+		html += e.enabled ? icon('tick.png',l('active')):icon('control_pause.png', l('inactive'));
 		html += e.title;
 		if (info.length > 0)
 			html += '<div class="small padleft">'+info+'</div>';
@@ -800,17 +800,17 @@ function init() {
 	ini += '<li id="epgGroup" class="group">'+l('electronicProgramGuide')+'</li>';
 	ini += '<li class="noBgImage"><form onsubmit="searchEpg(true);return false;"><div><input id="searchText" class="round" type="text" name="search" /></div>';
 	ini += '<div><input id="searchButton" type="button" value="'+l('search')+'" style="width:99%;" onclick="searchEpg();"/></div></form></li>';
-	ini += '<li><a href="#tags">'+icon('../icons/tag_blue.png')+l('tags')+'</a></li>';
-	ini += '<li><a href="epg.html" target="_blank">'+icon('images/timeline.png')+l('timeline')+'</a></li>';
+	ini += '<li><a href="#tags">'+icon('tag_blue.png')+l('tags')+'</a></li>';
+	ini += '<li><a href="epg.html" target="_blank">'+icon('timeline.png')+l('timeline')+'</a></li>';
 	ini += '<li class="group">'+l('digitalVideoRecorder')+'</li>';
-	ini += '<li><a href="#upcoming" onclick="loadRecordings(\'upcoming\', true);">'+icon('../icons/clock.png','')+l('upcomingRecordings')+'</a></li>';
-	ini += '<li><a href="#finished" onclick="loadRecordings(\'finished\', true);">'+icon('../icons/television.png','')+l('finishedRecordings')+'</a></li>';
-	ini += '<li><a href="#failed" onclick="loadRecordings(\'failed\', true);">'+icon('../icons/exclamation.png','')+l('failedRecordings')+'</a></li>';
-	ini += '<li><a href="#ar" onclick="loadAutomaticRecorderList();">'+icon('../icons/wand.png','')+l('automaticRecorder')+'</a></li>';
+	ini += '<li><a href="#upcoming" onclick="loadRecordings(\'upcoming\', true);">'+icon('clock.png','')+l('upcomingRecordings')+'</a></li>';
+	ini += '<li><a href="#finished" onclick="loadRecordings(\'finished\', true);">'+icon('television.png','')+l('finishedRecordings')+'</a></li>';
+	ini += '<li><a href="#failed" onclick="loadRecordings(\'failed\', true);">'+icon('exclamation.png','')+l('failedRecordings')+'</a></li>';
+	ini += '<li><a href="#ar" onclick="loadAutomaticRecorderList();">'+icon('wand.png','')+l('automaticRecorder')+'</a></li>';
 	ini += '<li class="group">'+l('informationStatus')+'</li>';
-	ini += '<li><a href="#subscriptions" onclick="loadSubscriptions();">'+icon('../icons/eye.png')+l('subscriptions')+'</a></li>';
-	ini += '<li><a href="#adapters" onclick="loadAdapters();">'+icon('../icons/pci.png')+l('adapters')+'</a></li>';
-	ini += '<li><a href="#about" onclick="loadAbout();">'+icon('../icons/information.png')+l('about')+'</a></li>';
+	ini += '<li><a href="#subscriptions" onclick="loadSubscriptions();">'+icon('eye.png')+l('subscriptions')+'</a></li>';
+	ini += '<li><a href="#adapters" onclick="loadAdapters();">'+icon('pci.png')+l('adapters')+'</a></li>';
+	ini += '<li><a href="#about" onclick="loadAbout();">'+icon('information.png')+l('about')+'</a></li>';
 	ini += '<li><a href="../../extjs.html" target="_blank">'+icon('../htslogo.png')+l('desktopSite')+'</a></li>';
 	document.getElementById('home').innerHTML += ini;
 	var app = '';

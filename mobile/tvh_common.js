@@ -44,7 +44,7 @@ function doPost(path, callback, params) {
 
 function doPostWithParam(path, callback, params, ownParam) {
 	var http = new XMLHttpRequest();  	
-	http.open("POST", "../../"+path, true);
+	http.open("POST", path, true);
 	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	http.setRequestHeader("Content-length", params.length);
 	http.setRequestHeader("Connection", "close");
@@ -127,7 +127,7 @@ function loadStandardTable(table, callback) {
 
 function doGet(path, callback) {
 	var http = new XMLHttpRequest();  	
-	http.open("GET", "../../"+path, true);
+	http.open("GET", path, true);
 	http.path = path;
 
 	http.onreadystatechange = function() {
@@ -150,7 +150,7 @@ function image(url) {
 
 function icon(path) {
 	if (path)
-		return '<img src="'+path+'" height="16px" width="16px" />';
+		return '<img src="static/icons/'+path+'" height="16px" width="16px" />';
 	else
 		return '';
 }

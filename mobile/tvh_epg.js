@@ -322,14 +322,15 @@ function readChannels(response) {
 	for (var i in channels) {
 		for (var j in channels[i]) {
 			var e = channels[i][j];
+      var ci = e.chicon || e.ch_ico || '';
 			html += '<div id="c_'+e.chid+'" style="left:0px;top:'+y+'px;" class="channelinfo"><h1>'+e.name+'</h1>';
 			var streamUrl = window.location.protocol+'//'+window.location.host+'/stream/channelid/'+e.chid;
-			html += '<h2>'+icon('../icons/control_play.png') + l('liveTv')+'</h2><p>'+streamUrl+'</p>';
+			html += '<h2>'+icon('control_play.png') + l('liveTv')+'</h2><p>'+streamUrl+'</p>';
 			html += '<p><a target="_blank" href="'+streamUrl+'"><button>HTTP</button></a>';
 			html += '<a target="_blank" href="buzzplayer://'+streamUrl+'"><button>Buzzplayer</button></a></p>';
-			html += '<hr><h2>'+icon('../icons/tag_blue.png') + l('tags') + '</h2><p>' + tagSelect + '</p>';
+			html += '<hr><h2>'+icon('tag_blue.png') + l('tags') + '</h2><p>' + tagSelect + '</p>';
 			html += '</div>';
-			html += '<img id="i_'+e.chid+'" height="'+lh+'px" onclick="showChannel('+e.chid+');" class="channel" src="'+e.ch_icon+'" alt="'+e.name+'" title="'+e.name+'" style="left:0px;top:'+y+'px;" />';
+			html += '<img id="i_'+e.chid+'" height="'+lh+'px" onclick="showChannel('+e.chid+');" class="channel" src="'+ci+'" alt="'+e.name+'" title="'+e.name+'" style="left:0px;top:'+y+'px;" />';
 			channelToY[e.name] = y;
 			y+=lh+gap;
 			maxHeight = y;
